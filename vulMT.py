@@ -47,22 +47,24 @@ taglists = ['Jia-11111','Jia-22222','Jia-33333','Jia-44444','Jia-55555','Jia-666
 #result = p.map(vulrun,lists)
 
 # none block mode 
-#result = p.map_async(vulrun,taglists)
+result = p.map_async(vulrun,taglists)
 	
 ### collect ALL process result in a Queue ? and summarize  
 # monitor loop
-#while True:
-#    if result.ready():
-#        break
-#    else:
-#        size = q.qsize()
-#        print(size)
-#        time.sleep(3)
-#
-#outputs = result.get()
-outputs = []
-for t in taglists:
-    outputs.append(vulrun(t))
+while True:
+    if result.ready():
+        break
+    else:
+        size = q.qsize()
+        print(size)
+        time.sleep(3)
+
+outputs = result.get()
+
+###### slow mode
+###outputs = []
+###for t in taglists:
+###    outputs.append(vulrun(t))
 
 for o in outputs:
     print(o)
