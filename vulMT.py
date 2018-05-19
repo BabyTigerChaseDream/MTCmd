@@ -2,6 +2,7 @@
 
 ### Step-1 : multiprocess func run model
 from multiprocessing import *
+from multiprocessing.dummy import Pool as ThreadPool
 import subprocess as sub
 
 import time 
@@ -39,7 +40,9 @@ def vulrun(tag):
 ###### main-process func ###### 
 m = Manager()
 q = m.Queue()
-p = Pool(cpu_count()) 
+
+#################### p = Pool(cpu_count()) 
+p = ThreadPool(cpu_count())
 
 taglists = ['Jia-11111','Jia-22222','Jia-33333','Jia-44444','Jia-55555','Jia-66666','Jia-77777','Jia-88888']
 
