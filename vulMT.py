@@ -47,10 +47,11 @@ def vulmtFunc(vulargs):
 if __name__=="__main__":
     ### cmdline arguments 
     import argparse
-    parser = argparse.ArgumentParser(description='Auto Parse Eris uuid: test/build results')
+    parser = argparse.ArgumentParser(description='MT-process run vul cmdline ')
 
     # show command group 
     parser.add_argument('-cl', action='store', dest='CLList', default=None, help='CL numbers to run, inform of 1,2,3 ')    
+    # note: -cmd must quote by " 
     parser.add_argument('-cmd', action='store', dest='cmdline', default=None, help='full vul cmdline')    
     parser.add_argument('-t', action='store', dest='tags', default=None, help='tags in cmdline')    
 
@@ -60,10 +61,11 @@ if __name__=="__main__":
     ### vulmtFunc paramter
     #CLList = ['24068678','24068670','24068575','24068452','24068331','24068142','24068074','24068074','tot']
     #CLList = ['hello','multi']
-    #cmdline="vulcan --keep-going -v --eris --user jiag --product=//sw/gpgpu/MachineLearning/cudnn_v7.1/eris/cudnn_r92_r396.vlcp --build cudnn_doc --target-os=Linux --target-arch=aarch64 --tag={tags} --target-revision=cl-{cl}"
-    #tags = 'MTJIA'
+    #cmdline="vulcan --keep-going -v --eris --user *** --product=//sw/gpgpu/MachineLearning/cudnn_v7.1/eris/cudnn_r92_r396.vlcp --build cudnn_doc --target-os=Linux --target-arch=aarch64 --tag={tags} --target-revision=cl-{cl}"
+    #tags = 'MT'
    
     CLList = arglist.CLList.split(',')
+    # use " as a special char , incase of mix other cmdline param with it
     cmdline = re.sub('\"','',arglist.cmdline)
     tags = arglist.tags
 
