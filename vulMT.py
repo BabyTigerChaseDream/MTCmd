@@ -11,6 +11,13 @@ import time
 #   child-process func      #
 #############################
 
+# example usage :
+"""
+
+/home/jia/prj/MTCmd/vulMT.py -cl 24894002,24894752,24895236,24895609,24895936,24896122,24897500,24897687,24898336,24898827,24899166,24899188,24900204,24900909,24900955,24901073,24901241,24901243,24901602 -cmd "vulcan -v --user jiag --eris --trace 3 --product=//sw/gpgpu/MachineLearning/cudnn_v7.3/eris/cudnn_r100_r400.vlcp --force --build cudnn --target-arch x86_64 --target-os Linux --target-revision=cl-{cl} --tag={tags}" -t 2018906#Build#Fail#TRG
+
+"""
+
 def vulmtFunc(vulargs):
     # cl: change-list / tags: notes of submit / Qbar: Queue log progress
     cl, cmdtemp, tags, Qbar = vulargs

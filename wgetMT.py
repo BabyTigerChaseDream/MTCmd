@@ -20,7 +20,9 @@ def wgetMtFunc(wgetArgs):
     # wget cmdline template:
     #cmdwget = "wget -q -nc -r -nH -np --cut-dirs=10 -R \"index.html*\" {serverDir} -P {localDir}".format_map(vars())
     # delete "-q" , because it will hide error to be collect to stderr in "proc.communicate()"
-    cmdwget = "wget -nc -r -nH -np --cut-dirs=10 -R \"index.html*\" {serverDir} -P {localDir}".format_map(vars())
+    #cmdwget = "wget -nc -r -nH -np --cut-dirs=10 -R \"index.html*\" {serverDir} -P {localDir}".format_map(vars())
+    
+    cmdwget = serverDir
 
     print('=====> Start download : ', cmdwget)
     proc=sub.Popen(cmdwget.format_map(vars()), bufsize=1, shell=True, stdout=sub.PIPE, stderr=sub.PIPE)

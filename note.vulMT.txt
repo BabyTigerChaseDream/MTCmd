@@ -1,0 +1,42 @@
+import urllib2 
+from uuidparser import *
+urls = ['https://eris-portal.nvidia.com/GetSubmissionHeaderOneUuidServlet?uuid=c97dc2aa-d7ac-4e6a-902c-1823cbc56800', 'https://eris-portal.nvidia.com/GetProductServlet?uuid=c97dc2aa-d7ac-4e6a-902c-1823cbc56800','https://eris-portal.nvidia.com/OneSubmissionTestSuitesServlet?uuid=c97dc2aa-d7ac-4e6a-902c-1823cbc56800&tableselector=dataTableOneSubmissionBuilds&url']
+
+### Step-1 : multiprocess func run model
+from multiprocessing.dummy import Pool as ThreadPool
+multiprocessing.cpu_count()
+import multiprocessing
+multiprocessing.cpu_count()
+pool = ThreadPool(4) 
+results = pool.map(urllib2.urlopen, urls)
+results = pool.map(GetUrlString, urls)
+
+def vulrun(number):
+	cmdtemp="vulcan -v --eris --db --user jiag --dry-run --product=//sw/gpgpu/MachineLearning/cudnn_v7.1/eris/cudnn_r90_r384.vlcp --build --testsuite cudnn_samples_rnn_tests --target-revision=cl-tot --target-gpu=gp100sxm2 --target-os=Ubuntu16_04 --target-arch=ppc64le --tags={number}".format_map(vars())
+	proc=sub.Popen(cmdtemp, bufsize=1, shell=True, stdout=sub.PIPE, stderr=sub.PIPE)
+	stdout,stderr = proc.communicate()
+
+# block mode 
+results = pool.map(vulrun,lists)
+
+# none block mode 
+results = pool.map_async(vulrun,lists)
+
+### Step-2 : func output/err collection  
+	
+proc=sub.Popen(errcmd, bufsize=1, shell=True, stdout=sub.PIPE, stderr=sub.PIPE)
+stdout,stderr = proc.communicate()
+# search for ERROR
+#### >>> stderr
+# b'[ERROR cuda.py:_get_eris_arch_targets:1851] unknown target architecture "ppc"\n
+
+### Step-3 : collect ALL process result in a Queue ? and summarize  
+
+
+
+# cmd history check in python shell 
+import readline
+for i in range(readline.get_current_history_length()):
+	print (readline.get_history_item(i + 1))
+
+## Try timeit for *.py (multiprocess/for loop)
